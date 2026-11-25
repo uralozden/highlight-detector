@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "highlight-detector"
+version = "0.1.0"
+description = "Find the action in long gameplay recordings and streams. Local CLI + MCP server, FFmpeg + NumPy, no GPU, no API keys."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "HookHarvest" }]
+keywords = ["highlights", "gameplay", "twitch", "kick", "vod", "clips", "ffmpeg", "shorts", "mcp", "gta"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Environment :: Console",
+  "Topic :: Multimedia :: Video",
+  "Intended Audience :: End Users/Desktop",
+]
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+plot = ["Pillow>=10"]
+mcp = ["mcp>=1.2"]
+dev = ["pytest>=8", "Pillow>=10", "ruff>=0.6"]
+
+[project.scripts]
+highlight-detector = "highlight_detector.cli:main"
+highlight-detector-mcp = "highlight_detector.mcp_server:main"
+
+[project.urls]
+Homepage = "https://github.com/uralozden/highlight-detector"
+Issues = "https://github.com/uralozden/highlight-detector/issues"
+"Hosted version" = "https://hookharvest.co"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/highlight_detector"]
+
+[tool.ruff]
+line-length = 170
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
